@@ -82,14 +82,14 @@ int GetNumberWithReplaceString(const std::string& str, const std::vector<std::st
 
     int str_size = static_cast<int>(replace_str.size());
     for (int index = 0; index < str_size; ++index) {
-        if (isdigit(str[index])) {
-            first = CharToDigit(str[index]);
+        if (isdigit(replace_str[index])) {
+            first = CharToDigit(replace_str[index]);
             break;
         }
     }
     for (int index = str_size - 1; index >= 0; --index) {
-        if (isdigit(str[index])) {
-            second = CharToDigit(str[index]);
+        if (isdigit(replace_str[index])) {
+            second = CharToDigit(replace_str[index]);
             break;
         }
     }
@@ -112,7 +112,7 @@ int main() {
             assert(string_number == string_number_with_replace);
             task1_1_sum += string_number;
             int string_number_with_digit_string = GetNumber(str, digit_string, true);
-            int string_number_with_digit_string_with_replace = GetNumber(str, digit_string, true);
+            int string_number_with_digit_string_with_replace = GetNumberWithReplaceString(str, digit_string, true);
             assert(string_number_with_digit_string == string_number_with_digit_string_with_replace);
             task1_2_sum += string_number_with_digit_string;
         }
