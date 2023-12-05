@@ -34,7 +34,7 @@ int64_t GetMinSeedLocation2(const std::vector<int64_t> &seeds, const std::vector
     for (size_t i = 0; i + 1 < seeds.size(); i += 2) {
         ranges.emplace_back(seeds[i], seeds[i] + seeds[i + 1] - 1);
     }
-    std::cout << std::endl;
+
     for (const auto &map : maps) {
         std::vector<std::pair<int64_t, int64_t>> new_ranges;
         while (!ranges.empty()) {
@@ -52,8 +52,7 @@ int64_t GetMinSeedLocation2(const std::vector<int64_t> &seeds, const std::vector
                     if (layer.source_range_start <= end_range
                         && end_range < layer_source_end)
                     {
-                        end_range = layer_offset + end_range;
-                        new_ranges.emplace_back(start_range, end_range);
+                        new_ranges.emplace_back(start_range, layer_offset + end_range);
                     } else {
                         new_ranges.emplace_back(start_range, layer_destination_end - 1);
                         ranges.emplace_back(layer_source_end, end_range);
@@ -63,9 +62,7 @@ int64_t GetMinSeedLocation2(const std::vector<int64_t> &seeds, const std::vector
                     if (layer.source_range_start <= end_range
                         && end_range < layer_source_end)
                     {
-                        end_range = layer_offset + end_range;
-                        new_ranges.emplace_back(layer.destination_range_start, end_range);
-                        end_range = layer.source_range_start - 1;
+                        new_ranges.emplace_back(layer.destination_range_start, layer_offset + end_range);
                         ranges.emplace_back(start_range, layer.source_range_start - 1);
                         break;
                     }
